@@ -16,7 +16,7 @@ const data = require('./data/data.json');
   * une chaîne de caractères.
   */
 function demarrage(){
-    return "";
+    return "Bonjour";
 }
 
  /**
@@ -26,7 +26,7 @@ function demarrage(){
   * Elle retourne un objet javascript au format json.
   */
 function home(){
-    return undefined;
+    return {"voila mon jason" : "une chèvre"};
 }
 
  /**
@@ -36,7 +36,7 @@ function home(){
   * Elle retourne un objet javascript contenant toutes les données.
   */
 function donnees(){
-    return {};
+    return data;
 }
 
  /**
@@ -48,7 +48,7 @@ function donnees(){
   * Cette liste sera contenu dans la clé communication
   */
 function comms(){
-    return {"communication":[]};
+    return {"communication":data.communication};
 }
 
 
@@ -61,7 +61,7 @@ function comms(){
   * Cette liste sera contenue dans la clé objects
   */
 function objects(){
-    return {"objects":[]};
+    return {"objects":data.objects};
 }
 
  /**
@@ -73,7 +73,8 @@ function objects(){
   * Cette liste sera contenu dans la clé types
   */
 function types(){
-    return undefined;
+
+    return {"types" : Object.entries(data.types)};
 }
 
 /**
@@ -85,7 +86,7 @@ function types(){
  * Cette liste sera contenu dans la clé formats.
  */
 function formats(){
-   return undefined;
+   return {"formats" : Object.entries(data.data_formats)};
 }
 
  /**
@@ -97,7 +98,7 @@ function formats(){
   * Cette liste sera contenue dans la clé objects
   */
 function objects_serials(){
-    return {"objects":[]};
+    return {"objects":objects().objects.map(element => element.serial)};
 }
 
 /**
@@ -108,7 +109,7 @@ function objects_serials(){
  * l'objet ayant le serial passé en paramètre.
  */
 function get_object_by_serial(serial){
-    return serial;
+    return objects().objects.find(element => element.serial === serial);
 }
 
 /**
@@ -119,7 +120,11 @@ function get_object_by_serial(serial){
  * liste des objets ayant l'opérateur passé en paramètre.
  */
 function get_objects_by_operator(operator){
-    return operator;
+    if(objects().objects.filter(element => element.provisionning.operator === operator).length === 0){
+        return undefined;
+    }else {
+        return  {"objects" :objects().objects.filter(element => element.provisionning.operator === operator)};
+    }
 }
 
 /**
@@ -130,7 +135,11 @@ function get_objects_by_operator(operator){
  * ayant pour mode de communication celui passé en paramètre.
  */
 function get_types_by_comm(comm){
-    return comm;
+    if(types().types.filter(elem => elem[1].communication === comm).length === 0){
+        return undefined;
+    }else {
+        return {"types" : types().types.filter(elem => elem[1].communication === comm) };
+    }
 }
 
 /**
@@ -141,7 +150,12 @@ function get_types_by_comm(comm){
  * ayant pour un format de données celui passé en paramètre.
  */
 function get_types_by_format(format){
-    return format;
+    console.log(types().types.filter(elem => elem[1].communication));
+    if(types().types.filter(elem => elem[1].communication === comm).length === 0){
+        return undefined;
+    }else {
+        return {"types" : types().types.filter(elem => elem[1].communication === comm) };
+    }
 }
 
 /**
