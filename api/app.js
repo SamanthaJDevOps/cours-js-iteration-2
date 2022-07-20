@@ -150,11 +150,11 @@ function get_types_by_comm(comm){
  * ayant pour un format de données celui passé en paramètre.
  */
 function get_types_by_format(format){
-    types().types.map(elem => elem[1].sensors.map(sens => console.log(sens)));
-    if((types().types.map(elem => elem[1].sensors.filter(sensor => sensor === format)).length === 0)){
+    //types().types.map(elem => elem[1].sensors.map(sens => console.log(sens)));
+    if(types().types.map(elem => elem[1].sensors.filter(sensor => sensor === format).length).reduce((a,b) => a + b) === 0){
         return undefined;
     }else {
-        return {"types" : types().types.map(elem => elem[1].sensors.filter(element => element === format)) };
+        return {"types" : types().types.filter(elem => elem[1].sensors.filter(element => element === format).length > 0) };
     }
 }
 
@@ -166,7 +166,17 @@ function get_types_by_format(format){
  * ayant pour mode de communication celui passé en paramètre.
  */
 function filter_objects_by_comm(comm){
-    return comm;
+
+    // if(data.communication.indexOf(comm) < 0){
+    //     return undefined;
+    // }else{
+    //    const r =  data.objects.filter(o => data.types[o.type].communication == comm);
+    //     console.log(r);
+    //     return {objects : r};
+    // }
+
+    return data.communication.indexOf(comm) < 0 ? undefined : { objects : data.objects.filter(o => data.types[o.type].communication == comm) };
+
 }
 
 /**
@@ -178,7 +188,60 @@ function filter_objects_by_comm(comm){
  * du même type que celui passé en paramètre.
  */
 function filter_objects_by_data_type(data_type){
-    return data_type;
+
+    // console.log(data_type);
+    const objets = data.objects;
+    const types = data.types;
+
+    // console.log(data_formats);
+    // console.log("\n\n\n");
+    // console.log(types);
+
+    console.log("\n\n\n");
+
+    const data_formats = objets.map(o => data.types[o.type].sensors.filter(sens => data.data_formats[sens].data_type === data_type)).filter((tab) => tab.length);
+    console.log(data_formats);
+
+    //objets.map(({type}) => console.log(type));
+    // const r = data_formats.map((el) => data.objects.type[data.types.sensors.filter(el)]);
+    // console.log(r);
+    // for(el in types) {
+    //     types[el].sensors.map(console.log);
+    // }
+    //
+    // console.log(data_types);
+
+    // types.map(console.log);
+    // if(data.data_formats.indexOf(data_type) < 0){
+    //     return undefined;
+    // }else{
+    //    const r =  data.objects.filter(o => data.types[o.type].communication == comm);
+    //     console.log(r);
+    //     return {objects : r};
+    // }
+    //data.data_formats.forEach(console.log);
+    //data.Object.entries(data_formats).forEach(element => console.log(element));
+
+    // console.log("1 : ");
+    //
+    // //Object.entries(data.types).map(console.log);
+    // const r = Object.entries(data.types)[0];
+    // console.log(r);
+    //
+    // console.log("2 : ");
+    // Object.entries(data.types).forEach(element => console.log(element));
+
+    // console.log("3 : ");
+    // const entries = Object.entries((data.types));
+    // console.log("entries : ", entries);
+    //
+    //
+    // const map_entries = entries.map(console.log);
+    // const foreach = map_entries.forEach(element => element.filter(el => typeof(el) === object).map(console.log));
+
+    //return data.data_formats.indexOf(comm) < 0 ? undefined :
+    //Object.entries(data.types).map(o => o.
+
 }
 
 /**
