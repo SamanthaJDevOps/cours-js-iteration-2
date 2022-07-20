@@ -150,11 +150,11 @@ function get_types_by_comm(comm){
  * ayant pour un format de données celui passé en paramètre.
  */
 function get_types_by_format(format){
-    console.log(types().types.filter(elem => elem[1].communication));
-    if(types().types.filter(elem => elem[1].communication === comm).length === 0){
+    types().types.map(elem => elem[1].sensors.map(sens => console.log(sens)));
+    if((types().types.map(elem => elem[1].sensors.filter(sensor => sensor === format)).length === 0)){
         return undefined;
     }else {
-        return {"types" : types().types.filter(elem => elem[1].communication === comm) };
+        return {"types" : types().types.map(elem => elem[1].sensors.filter(element => element === format)) };
     }
 }
 
