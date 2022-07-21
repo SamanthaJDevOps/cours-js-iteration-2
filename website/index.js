@@ -9,6 +9,7 @@ app.use('/adminlte/dist', express.static(__dirname + '/node_modules/admin-lte/di
 app.use('/adminlte/plugins', express.static(__dirname + '/node_modules/admin-lte/plugins/'));
 app.use('/images', express.static(__dirname + '/public/images/'));
 
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/home.html'));
 });

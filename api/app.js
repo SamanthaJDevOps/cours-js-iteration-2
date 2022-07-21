@@ -191,27 +191,6 @@ function filter_objects_by_data_type(data_type){
 
     const data_formats = objects().objects.map(o => data.types[o.type].sensors.filter(sens => data.data_formats[sens].data_type === data_type)).filter((tab) => tab.length);
 
-    // if(data_formats.length != 0){
-    //     data_formats.map(o =>console.log(o[0]));
-    //     const type_concern = [];
-    //     data_formats.forEach( o => {
-    //         const t = get_types_by_format(o[0]);
-    //         console.log('\n\n\n');
-    //         console.log(t.types[0][1].sensors);
-    //         console.log('\n\n\n');
-    //         type_concern.push(t.types);
-    //
-    //         type_concern.forEach(a => {
-    //             console.log('\n\n\n');
-    //             console.log(a[0][0]);
-    //             const obj = [];
-    //             obj.push(objects().objects.filter( i => i.type === a[0][0]));
-    //             console.log(obj);
-    //         });
-    //     });
-    //
-    // }
-    //
 
     if(data_formats.length != 0){
         const obj = data_formats.map(o => objects().objects.filter( i => i.type === get_types_by_format(o[0]).types[0][0]) );
@@ -262,6 +241,13 @@ function get_full_object_by_serial(serial){
 const express =require('express');
 const app = express();
 app.use(express.static('public'));
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    next();
+});
 
 // définitions des routes
 app.get('/', route(home));
