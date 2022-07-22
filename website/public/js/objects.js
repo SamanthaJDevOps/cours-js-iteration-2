@@ -12,12 +12,12 @@ function load_components(){
     $('.brand-text').text('Pas IoT, Pas Chambéry');
 
    // $.get("http://localhost:5000/objects");
-    $.get("http://cicada.rocks:5000/objects", function(data, status){
+    $.get("http://localhost:5000/objects", function(data, status){
         alert("Data: " + data + "\nStatus: " + status);
         console.log(data);
         data.objects.forEach(o => {
             console.log(o.serial);
-            $.get("http://cicada.rocks:5000/object/full/" + o.serial, function(obj, status){
+            $.get("http://localhost:5000/object/full/" + o.serial, function(obj, status){
                 alert("Data: " + obj + "\nStatus: " + status);
                 add_ligne_table(obj);
             });
